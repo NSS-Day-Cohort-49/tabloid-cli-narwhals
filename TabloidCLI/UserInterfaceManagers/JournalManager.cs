@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
     public class JournalManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
+        private JournalRepository _journalRepository;
+        private string _connectionString;
 
         public JournalManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
+            _journalRepository = new JournalRepository(connectionString);
+            _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
@@ -51,7 +57,18 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("New Journal Entry");
+            Journal journal = new Journal();
+
+            Console.Write("Entry Title: ");
+            journal.Title = Console.ReadLine();
+
+            Console.Write("Body: ");
+            journal.Content = Console.ReadLine();
+
+            journal.CreateDateTime = new DateTime(DateTime.Now.Ticks);
+
+            _journalRepository.Insert(journal);
         }
 
         private void Edit()
