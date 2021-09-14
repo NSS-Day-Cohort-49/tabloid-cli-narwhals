@@ -52,7 +52,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-            throw new NotImplementedException();
+            List<Journal> journals = _journalRepository.GetAll();
+            foreach (Journal j in journals)
+            {
+                Console.WriteLine(j);
+            }
         }
 
         private void Add()
