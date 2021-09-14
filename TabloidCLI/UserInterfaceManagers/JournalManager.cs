@@ -70,7 +70,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Body: ");
             journal.Content = Console.ReadLine();
 
-            journal.CreateDateTime = new DateTime(DateTime.Now.Ticks);
+            journal.CreateDateTime = DateTime.Now;
 
             _journalRepository.Insert(journal);
         }
