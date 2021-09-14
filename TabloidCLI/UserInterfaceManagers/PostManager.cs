@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
     public class PostManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
+        private PostRepository _postRepository;
         private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
@@ -75,8 +79,12 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Author = _authorRepository.Get(selectedAuth);
 
             Console.Write("Blog:");
+            ListBlogs();
 
+            int selectedBlog = int.Parse(Console.ReadLine());
+            post.Blog = _blogRepository.Get(selectedBlog);
 
+            _postRepository.Insert(post);
 
         }
 
@@ -86,6 +94,15 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Author author in authors)
             {
                 Console.WriteLine($"{author.Id}) {author.ToString()}");
+            }
+        }
+
+        private void ListBlogs()
+        {
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog blog in blogs)
+            {
+                Console.WriteLine($"{blog.Id}) {blog.Title}");
             }
         }
 
