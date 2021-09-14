@@ -6,6 +6,7 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
+            System.Console.WriteLine("Welcome to Tabloid, your friendly blog management app!");
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
             while (ui != null)
