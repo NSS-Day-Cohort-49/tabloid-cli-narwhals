@@ -80,7 +80,17 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            throw new NotImplementedException();
+            List<Blog> blogs = _blogRepository.GetAll();
+            
+            foreach (Blog b in blogs)
+            {
+                Console.WriteLine($"{b.Id}) {b.ToString()}");
+            }
+            
+            Console.Write("Which blog would you like to delete?: ");
+            var blogSelected = int.Parse(Console.ReadLine());
+
+            _blogRepository.Delete(blogSelected);
         }
     }
 }
