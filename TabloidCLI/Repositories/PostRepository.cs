@@ -10,7 +10,13 @@ namespace TabloidCLI.Repositories
 {
     public class PostRepository : DatabaseConnector, IRepository<Post>
     {
-        public PostRepository(string connectionString) : base(connectionString) { }
+        private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
+        public PostRepository(string connectionString) : base(connectionString) 
+        {
+            _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
+        }
 
         public List<Post> GetAll()
         {
@@ -55,7 +61,58 @@ namespace TabloidCLI.Repositories
 
         public Post Get(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id,
+	                                           Title,
+	                                           URL,
+	                                           PublishDateTime,
+	                                           AuthorId,
+	                                           BlogId
+                                        FROM Post
+                                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Post post = null;
+
+                    while (reader.Read())
+                    {
+                        post = new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("URL")),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
+                        };
+                        try
+                        {
+                            int authorId = reader.GetInt32(reader.GetOrdinal("AuthorId"));
+                            post.Author = _authorRepository.Get(authorId);
+                        }
+                        catch (Exception e)
+                        {
+                            post.Author = null;
+                        }
+                        try
+                        {
+                            int blogId = reader.GetInt32(reader.GetOrdinal("BlogId"));
+                            post.Blog = _blogRepository.Get(blogId);
+                        }
+                        catch (Exception e)
+                        {
+                            post.Blog = null;
+                        }
+                    }
+                    reader.Close();
+
+                    return post;
+                }
+            }
         }
 
         public List<Post> GetByAuthor(int authorId)
