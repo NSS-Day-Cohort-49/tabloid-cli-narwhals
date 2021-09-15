@@ -53,14 +53,6 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void List()
-        {
-            List<Post> posts = _postRepository.GetAll();
-            foreach (Post post in posts)
-            {
-                Console.WriteLine(post);
-            }
-        }
 
         private void Add()
         {
@@ -91,6 +83,14 @@ namespace TabloidCLI.UserInterfaceManagers
 
             _postRepository.Insert(post);
 
+        }
+        private void List()
+        {
+            List<Post> posts = _postRepository.GetAll();
+            foreach (Post post in posts)
+            {
+                Console.WriteLine($"{post.Id}) {post.Title} {post.Url}");
+            }
         }
 
         private void ListAuthors()
