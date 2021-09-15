@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
@@ -13,7 +14,32 @@ namespace TabloidCLI.Repositories
 
         public List<Post> GetAll()
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT id,
+                                               Title,
+                                               Url,
+                                               PublishDateTime,
+                                               Author,
+                                               Blogs
+                                        FROM Author";
+                    List<Post> posts = new List<Post>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Post post = new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetString("Title")),
+                            Url = reader.GetString(reader.GetString("Url")),
+                            PublishDateTime = reader.GetDateTime(reader.GetDateTime())
+                        }
+                    }
+                }
+            }
         }
 
         public Post Get(int id)
