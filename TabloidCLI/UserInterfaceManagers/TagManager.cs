@@ -113,7 +113,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             Console.WriteLine();
-            Console.Write("New tag name (blank to leave unchanged: ");
+            Console.Write("New tag name (blank to leave unchanged): ");
             string tagName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(tagName))
             {
