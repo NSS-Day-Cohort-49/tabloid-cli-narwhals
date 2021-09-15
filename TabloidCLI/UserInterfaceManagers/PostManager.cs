@@ -54,6 +54,7 @@ namespace TabloidCLI.UserInterfaceManagers
         }
 
 
+
         private void Add()
         {
             Console.WriteLine("New Post");
@@ -90,6 +91,36 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Post post in posts)
             {
                 Console.WriteLine($"{post.Id}) {post.Title} {post.Url}");
+            }
+        }
+
+        private Post Choose(string prompt = null)
+        {
+            if ( prompt == null)
+            {
+                 prompt = "Please choose an Post:";
+            }
+            Console.WriteLine(prompt);
+
+            List<Post> posts = _postRepository.GetAll();
+
+            for (int i = 0; i < posts.Count; i++)
+            {
+                Post post = posts[i];
+                Console.WriteLine($" {i + 1}) {post.Title} {post.Url}");
+            }
+            Console.WriteLine("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return posts[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
             }
         }
 
