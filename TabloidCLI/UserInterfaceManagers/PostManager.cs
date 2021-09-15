@@ -113,7 +113,14 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Edit()
         {
-            throw new NotImplementedException();
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null)
+            {
+                return;
+            }
+
+            Console.WriteLine();
+            Console.Write("New title");
         }
 
         private void Remove()
