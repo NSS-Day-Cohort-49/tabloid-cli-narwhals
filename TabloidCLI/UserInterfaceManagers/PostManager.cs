@@ -17,6 +17,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _parentUI = parentUI;
             _authorRepository = new AuthorRepository(connectionString);
             _blogRepository = new BlogRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
