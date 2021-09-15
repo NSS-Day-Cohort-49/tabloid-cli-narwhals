@@ -164,10 +164,11 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Url = url;
             }
             Console.Write("New Publication Date (DD/MM/YYYY) (blank to leave unchanged): ");
-            DateTime publishDateTime = DateTime.Parse(Console.ReadLine());
-            if (!string.IsNullOrWhiteSpace(title))
+            var publishDateTime = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(publishDateTime))
             {
-                postToEdit.PublishDateTime = publishDateTime;
+                    postToEdit.PublishDateTime = DateTime.Parse(publishDateTime);
+                
             }
             Console.WriteLine("Authors List to Update");
             List<Author> authors = _authorRepository.GetAll();
