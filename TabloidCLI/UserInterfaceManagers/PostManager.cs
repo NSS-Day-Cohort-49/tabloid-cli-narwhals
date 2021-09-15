@@ -167,8 +167,36 @@ namespace TabloidCLI.UserInterfaceManagers
             DateTime publishDateTime = DateTime.Parse(Console.ReadLine());
             if (!string.IsNullOrWhiteSpace(title))
             {
-                postToEdit.Title = title;
+                postToEdit.PublishDateTime = publishDateTime;
             }
+            Console.WriteLine("Authors List to Update");
+            List<Author> authors = _authorRepository.GetAll();
+            for (int i = 0; i < authors.Count; i++)
+            {
+                Author updateAuthor = authors[i];
+                Console.WriteLine($" {i + 1}) {updateAuthor.FullName}"); // could also use ToString() method
+            }
+            Console.Write("> ");
+            var authorIndex = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(authorIndex))
+            {
+                postToEdit.Author = authors[int.Parse(authorIndex) - 1];
+            }
+            Console.WriteLine("Blogs List to Update");
+            List<Blog> blogs = _blogRepository.GetAll();
+            for (int i = 0; i < blogs.Count; i++)
+            {
+                Blog updateBlog = blogs[i];
+                Console.WriteLine($" {i + 1}) {updateBlog.ToString()}"); 
+            }
+            Console.Write("> ");
+            var blogIndex = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(blogIndex))
+            {
+                postToEdit.Blog = blogs[int.Parse(blogIndex) - 1];
+            }
+
+            _postRepository.Update(postToEdit);
         }
 
         private void Remove()
