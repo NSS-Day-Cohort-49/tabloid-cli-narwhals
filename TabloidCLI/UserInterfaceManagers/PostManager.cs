@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
     public class PostManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
+        private PostRepository _postRepository;
+        private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
+            _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
@@ -51,7 +60,51 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("New Post");
+            Post post = new Post();
+
+            Console.Write("Title:");
+            post.Title = Console.ReadLine();
+
+            Console.Write("URL:");
+            post.Url = Console.ReadLine();
+
+            Console.Write("Publication Date:(DD/MM/YYYY)");
+            DateTime publishDate = DateTime.Parse(Console.ReadLine());
+            post.PublishDateTime = publishDate;
+
+            Console.Write("Author:");
+            ListAuthors();
+
+            int selectedAuth = int.Parse(Console.ReadLine());
+            post.Author = _authorRepository.Get(selectedAuth);
+
+            Console.Write("Blog:");
+            ListBlogs();
+
+            int selectedBlog = int.Parse(Console.ReadLine());
+            post.Blog = _blogRepository.Get(selectedBlog);
+
+            _postRepository.Insert(post);
+
+        }
+
+        private void ListAuthors()
+        {
+            List<Author> authors = _authorRepository.GetAll();
+            foreach (Author author in authors)
+            {
+                Console.WriteLine($"{author.Id}) {author.ToString()}");
+            }
+        }
+
+        private void ListBlogs()
+        {
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog blog in blogs)
+            {
+                Console.WriteLine($"{blog.Id}) {blog.Title}");
+            }
         }
 
         private void Edit()
