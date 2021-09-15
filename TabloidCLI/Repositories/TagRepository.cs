@@ -67,7 +67,7 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Tag
+                    cmd.CommandText = @"UPDATE Tag 
                                       SET Name = @name
                                       WHERE id = @id";
 
