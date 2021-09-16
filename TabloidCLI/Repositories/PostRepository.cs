@@ -233,5 +233,18 @@ namespace TabloidCLI.Repositories
                 }
             }
         }
+
+        public void DeleteTag(int postId, int tagId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+
+                }
+            }
+        }
+        
     }
 }

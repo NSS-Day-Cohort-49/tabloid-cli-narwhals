@@ -69,7 +69,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void RemoveTag()
         {
-            throw new NotImplementedException();
+            Post post = _postRepository.Get(_postId);
+
+            Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
+            List<Tag> tags = post.Tags;
         }
     }
 }
