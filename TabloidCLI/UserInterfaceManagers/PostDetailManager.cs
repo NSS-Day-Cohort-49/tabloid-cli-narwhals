@@ -92,8 +92,6 @@ namespace TabloidCLI.UserInterfaceManagers
         
         
         
-        
-        
         private void RemoveTag()
         {
             Post post = _postRepository.Get(_postId);
