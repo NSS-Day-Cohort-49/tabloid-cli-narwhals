@@ -67,6 +67,33 @@ namespace TabloidCLI.UserInterfaceManagers
             throw new NotImplementedException();
         }
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         private void RemoveTag()
         {
             Post post = _postRepository.Get(_postId);
@@ -78,7 +105,19 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Tag tag = tags[i];
                 Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
 
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _postRepository.DeleteTag(post.Id, tag.Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection. Won't remove any tags.");
             }
         }
     }
