@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
-using TabloidCLI.Repositories; 
+using TabloidCLI.Repositories;
 
 
 namespace TabloidCLI.Repositories
@@ -11,7 +11,7 @@ namespace TabloidCLI.Repositories
     {
         private AuthorRepository _authorRepository;
         private BlogRepository _blogRepository;
-        public PostRepository(string connectionString) : base(connectionString) 
+        public PostRepository(string connectionString) : base(connectionString)
         {
             _authorRepository = new AuthorRepository(connectionString);
             _blogRepository = new BlogRepository(connectionString);
@@ -190,7 +190,7 @@ namespace TabloidCLI.Repositories
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Tag> tags = new List<Tag>();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         try
                         {
@@ -201,7 +201,7 @@ namespace TabloidCLI.Repositories
                             };
                             tags.Add(tagToAdd);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             continue;
                         }
@@ -308,6 +308,11 @@ namespace TabloidCLI.Repositories
                 }
             }
         }
-        
     }
 }
+
+
+
+
+        
+ 

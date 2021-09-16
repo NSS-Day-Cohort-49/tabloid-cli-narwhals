@@ -100,39 +100,14 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine("Invalid Selection. Won't add any tags.");
             }
-        }
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        }      
         
         private void RemoveTag()
         {
             Post post = _postRepository.Get(_postId);
 
             Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
-            List<Tag> tags = post.Tags;
+            List<Tag> tags = _postRepository.GetTags(_postId);
 
             for (int i = 0; i < tags.Count; i++)
             {
