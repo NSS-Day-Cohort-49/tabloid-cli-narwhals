@@ -46,7 +46,7 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT t.Id [TagId], t.Name
+                    cmd.CommandText = @"SELECT t.Id AS TagId, t.Name
                                       FROM Tag t
                                       WHERE t.id = @id";
 
@@ -54,7 +54,22 @@ namespace TabloidCLI
 
                     Tag tag = null;
 
-                    SqlDataReader reader = 
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        if (tag == null)
+                        {
+                            tag = new Tag()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("TagId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            };
+                        }
+                    }
+
+                    reader.Close();
+
+                    return tag;
                 }
             }
         }
