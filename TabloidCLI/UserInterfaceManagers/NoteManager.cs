@@ -50,6 +50,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private void ListNotes()
         {
             List<Note> notes = _noteRepository.GetAll();
+            Console.WriteLine();
             Console.WriteLine("Notes List:");
             foreach (Note note in notes)
             {
