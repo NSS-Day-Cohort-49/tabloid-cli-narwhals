@@ -7,11 +7,13 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private IUserInterfaceManager _parentUI;
         private TagRepository _tagRepository;
+        private BlogRepository _blogRepository;
 
         public SearchManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _tagRepository = new TagRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
@@ -49,7 +51,19 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchBlogs()
         {
-            throw new NotImplementedException();
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Blog> results = _tagRepository.SearchBlogs(tagName);
+
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            };
         }
 
         private void SearchAuthors()
@@ -71,7 +85,19 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchPosts()
         {
-            throw new NotImplementedException();
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
+
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            };
         }
 
         private void SearchAll()
