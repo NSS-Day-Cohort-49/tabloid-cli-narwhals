@@ -27,6 +27,30 @@ namespace TabloidCLI
                                                CreateDateTime, 
                                                PostId
                                       FROM Note";
+
+                    List<Note> notes = new List<Note>();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Note note = new Note()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            Post = new Post
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("PostId"))
+                            }
+                        };
+
+                        notes.Add(note);
+                    }
+
+                    reader.Close();
+
+                    return notes;
                 }
             }
         }

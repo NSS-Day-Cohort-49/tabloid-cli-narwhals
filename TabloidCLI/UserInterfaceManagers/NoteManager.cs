@@ -49,7 +49,13 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void ListNotes()
         {
-            List<Note> notes = _noteRepository.
+            List<Note> notes = _noteRepository.GetAll();
+            Console.WriteLine("Notes List:");
+            foreach (Note note in notes)
+            {
+                Console.WriteLine($"{note.Id}) {note.Title} - Content: {note.Content} - Publication Date: {note.CreateDateTime}");
+            }
+            Console.WriteLine();
         }
 
         private void AddNote()
