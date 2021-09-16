@@ -63,6 +63,16 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine($"Title: {post.Title}");
             Console.WriteLine($"URL: {post.Url}");
             Console.WriteLine($"Publication Date: {post.PublishDateTime}");
+            Console.WriteLine("Tags: ");
+            List<Tag> postTags = _postRepository.GetTags(_postId);
+            if (postTags.Count < 1)
+            {
+                Console.WriteLine("None");
+            }
+            foreach (Tag t in postTags)
+            {
+                Console.WriteLine($" {t}");
+            }
         }
 
         private void AddTag()
