@@ -28,13 +28,16 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    SearchBlogs();
                     return this;
                 case "2":
                     SearchAuthors();
                     return this;
                 case "3":
+                    SearchPosts();
                     return this;
                 case "4":
+                    SearchAll();
                     return this;
                 case "0":
                     return _parentUI;
@@ -42,6 +45,11 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
+        }
+
+        private void SearchBlogs()
+        {
+            throw new NotImplementedException();
         }
 
         private void SearchAuthors()
@@ -59,6 +67,16 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 results.Display();
             }
+        }
+
+        private void SearchPosts()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SearchAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }
