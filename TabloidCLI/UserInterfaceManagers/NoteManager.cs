@@ -49,7 +49,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void ListNotes()
         {
-            throw new NotImplementedException();
+            List<Note> notes = _noteRepository.
         }
 
         private void AddNote()
