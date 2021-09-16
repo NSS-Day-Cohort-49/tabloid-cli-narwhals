@@ -16,7 +16,19 @@ namespace TabloidCLI
 
         public List<Note> GetAll()
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, 
+                                               Title, 
+                                               Content, 
+                                               CreateDateTime, 
+                                               PostId
+                                      FROM Note";
+                }
+            }
         }
 
         public Note Get(int id)
