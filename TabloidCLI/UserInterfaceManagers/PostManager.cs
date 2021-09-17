@@ -110,7 +110,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             if ( prompt == null)
             {
-                 prompt = "Please choose an Post:";
+                 prompt = "Please choose a Post:";
             }
             Console.WriteLine(prompt);
 
