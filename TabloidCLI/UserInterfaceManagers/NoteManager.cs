@@ -56,7 +56,10 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Notes List:");
             foreach (Note note in notes)
             {
-                Console.WriteLine($"{note.Id}) {note.Title} - Content: {note.Content} - Publication Date: {note.CreateDateTime}");
+                if (note.Id == _postId)
+                {
+                    Console.WriteLine($"{note.Id}) {note.Title} - Content: {note.Content} - Publication Date: {note.CreateDateTime}");
+                }
             }
             Console.WriteLine();
         }
