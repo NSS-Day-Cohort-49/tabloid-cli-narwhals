@@ -102,7 +102,40 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void SearchAll()
         {
-            throw new NotImplementedException();
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Author> authorResults = _tagRepository.SearchAuthors(tagName);
+            SearchResults<Post> postResults = _tagRepository.SearchPosts(tagName);
+            SearchResults<Blog> blogResults = _tagRepository.SearchBlogs(tagName);
+
+            if (authorResults.NoResultsFound || postResults.NoResultsFound || blogResults.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine($"Authors with {tagName} tag: ");
+                authorResults.Display();
+            };
+            if (postResults.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine($"Posts with {tagName} tag: ");
+                postResults.Display();
+            };
+            if (blogResults.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine($"Blogs with {tagName} tag: ");
+                blogResults.Display();
+            };
         }
     }
 }

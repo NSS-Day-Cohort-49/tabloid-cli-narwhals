@@ -9,12 +9,14 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private IUserInterfaceManager _parentUI;
         private NoteRepository _noteRepository;
+        private PostRepository _postRepository;
         private int _postId;
 
         public NoteManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
             _noteRepository = new NoteRepository(connectionString, postId);
+            _postRepository = new PostRepository(connectionString);
             _postId = postId;
         }
 
@@ -84,7 +86,22 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void AddNote()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("New Note");
+            Note note = new Note();
+
+            Console.Write("Note Title: ");
+            note.Title = Console.ReadLine();
+
+            Console.Write("Body: ");
+            note.Content = Console.ReadLine();
+
+            note.CreateDateTime = DateTime.Now;
+
+            note.Post = _postRepository.Get(_postId);
+
+            _noteRepository.Insert(note);
+            Console.WriteLine("Note Added");
+            Console.WriteLine("");
         }
 
         private void RemoveNote()
