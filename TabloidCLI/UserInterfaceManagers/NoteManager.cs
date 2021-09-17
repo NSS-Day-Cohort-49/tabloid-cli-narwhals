@@ -62,7 +62,10 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < notes.Count; i++)
             {
                 Note note = notes[i];
+                if(note.Post.Id == _postId)
+                {
                 Console.WriteLine($"{i + 1}) {note.Title}");
+                }
             }
             Console.WriteLine("> ");
 
