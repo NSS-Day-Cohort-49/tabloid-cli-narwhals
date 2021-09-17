@@ -51,7 +51,17 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void ListNotes()
         {
-            throw new NotImplementedException();
+            List<Note> notes = _noteRepository.GetAll();
+            Console.WriteLine();
+            Console.WriteLine("Notes List:");
+            foreach (Note note in notes)
+            {
+                if (note.Post.Id == _postId)
+                {
+                    Console.WriteLine($"{note.Id}) {note.Title} - Content: {note.Content} - Publication Date: {note.CreateDateTime}");
+                }
+            }
+            Console.WriteLine();
         }
 
         private void AddNote()
